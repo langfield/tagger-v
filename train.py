@@ -235,7 +235,10 @@ for epoch in xrange(n_epochs):
         count += 1
 
         # Take sentence data and return an input for the training or 
-        # evaluation function. 
+        # evaluation function.
+        
+        # if all options are used, we have:
+        # input = [words, char_for, char_rev, char_pos, caps, data['tags']] 
         input = create_input(train_data[index], parameters, True, singletons)
         new_cost = f_train(*input)
         epoch_costs.append(new_cost)

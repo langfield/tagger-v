@@ -374,7 +374,8 @@ class Model(object):
         print 'Compiling...'
         if training:
             
-            # params supposedly contains the pretrained embedding matrix that we are updating
+            # "params" supposedly contains the pretrained embedding matrix that we are updating. 
+            # Find the "get_updates" function and figure out what it does.  
             updates = Optimization(clip=5.0).get_updates(lr_method_name, cost, params, **lr_method_parameters)
             f_train = theano.function(
                 inputs=train_inputs,
