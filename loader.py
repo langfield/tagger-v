@@ -160,7 +160,8 @@ def prepare_dataset(sentences, word_to_id, char_to_id, tag_to_id, lower=False):
         })
     return data
 
-
+# In this case, "dictionary" happens to be "dico" generated from
+# the training sentences. 
 def augment_with_pretrained(dictionary, ext_emb_path, words):
     """
     Augment the dictionary with words that have a pretrained embedding.
