@@ -315,7 +315,11 @@ class Model(object):
         params = []
         if word_dim:
             self.add_component(word_layer)
-            params.extend(word_layer.params)
+
+            # Supposedly the commented-out line below will stop
+            # the model from updating the pretrained emeddings.
+ 
+            # params.extend(word_layer.params)
         if char_dim:
             self.add_component(char_layer)
             self.add_component(char_lstm_for)

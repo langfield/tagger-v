@@ -233,6 +233,9 @@ for epoch in xrange(n_epochs):
     print "Starting epoch %i..." % epoch
     for i, index in enumerate(np.random.permutation(len(train_data))):
         count += 1
+
+        # Take sentence data and return an input for the training or 
+        # evaluation function. 
         input = create_input(train_data[index], parameters, True, singletons)
         new_cost = f_train(*input)
         epoch_costs.append(new_cost)
