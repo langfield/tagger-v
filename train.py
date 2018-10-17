@@ -240,6 +240,10 @@ for epoch in xrange(n_epochs):
         # if all options are used, we have:
         # input = [words, char_for, char_rev, char_pos, caps, data['tags']] 
         input = create_input(train_data[index], parameters, True, singletons)
+
+        # My plan is that instead of modifying f_train, I will instead just
+        # make a new function called f_print whose sole purpose is the print
+        # out a few word vectors from the embedding matrix on each iteration. 
         new_cost = f_train(*input)
         epoch_costs.append(new_cost)
         if i % 50 == 0 and i > 0 == 0:

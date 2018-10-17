@@ -160,10 +160,13 @@ class Model(object):
             word_layer = EmbeddingLayer(n_words, word_dim, name='word_layer')
             word_input = word_layer.link(word_ids)
             inputs.append(word_input)
+
             # Initialize with pretrained embeddings
             if pre_emb and training:
                 new_weights = word_layer.embeddings.get_value()
                 print 'Loading pretrained embeddings from %s...' % pre_emb
+
+                # This is it, this is what needs to be printed. 
                 pretrained = {}
                 emb_invalid = 0
                 for i, line in enumerate(codecs.open(pre_emb, 'r', 'utf-8')):
