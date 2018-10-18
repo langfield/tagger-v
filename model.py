@@ -386,6 +386,14 @@ class Model(object):
                 updates=updates,
                 givens=({is_train: np.cast['int32'](1)} if dropout else {})
             )
+
+            #========================================
+            # FUNCTION TO PRINT PRETRAINED EMBEDDINGS 
+            f_print_emb = theano.function(
+                inputs=train_inputs,
+                outputs=cost,
+            )
+            #========================================
         else:
             f_train = None
 

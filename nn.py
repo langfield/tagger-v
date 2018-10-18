@@ -51,7 +51,7 @@ class HiddenLayer(object):
             self.output = self.activation(self.linear_output)
         return self.output
 
-
+# Is _this_ the object I'm looing for? (These aren't the droids you're looking for. )
 class EmbeddingLayer(object):
     """
     Embedding layer: word embeddings representations
