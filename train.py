@@ -211,7 +211,7 @@ print 'Saving the mappings to disk...'
 model.save_mappings(id_to_word, id_to_char, id_to_tag)
 
 # Build the model
-f_train, f_eval = model.build(**parameters)
+f_train, f_eval, f_print, embeddings = model.build(**parameters)
 
 # Reload previous model values
 if opts.reload:
@@ -246,6 +246,10 @@ for epoch in xrange(n_epochs):
         # out a few word vectors from the embedding matrix on each iteration. 
         new_cost = f_train(*input)
         epoch_costs.append(new_cost)
+
+        # printing
+        f_print(embeddings.get_value())
+
         if i % 50 == 0 and i > 0 == 0:
             print "%i, cost average: %f" % (i, np.mean(epoch_costs[-50:]))
         if count % freq_eval == 0:

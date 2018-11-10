@@ -152,6 +152,8 @@ class Model(object):
         input_dim = 0
         inputs = []
 
+        
+
         #
         # Word inputs
         #
@@ -163,10 +165,11 @@ class Model(object):
 
             # Initialize with pretrained embeddings
             if pre_emb and training:
+                
+                # Randomly generates new weights
                 new_weights = word_layer.embeddings.get_value()
                 print 'Loading pretrained embeddings from %s...' % pre_emb
 
-                # This is it, this is what needs to be printed. 
                 pretrained = {}
                 emb_invalid = 0
                 for i, line in enumerate(codecs.open(pre_emb, 'r', 'utf-8')):
@@ -196,6 +199,9 @@ class Model(object):
                             re.sub('\d', '0', word.lower())
                         ]
                         c_zeros += 1
+                
+                # This is it, this is what needs to be printed.
+                # "word_layer.embeddings" is a "theano.shared" object 
                 word_layer.embeddings.set_value(new_weights)
                 print 'Loaded %i pretrained embeddings.' % len(pretrained)
                 print ('%i / %i (%.4f%%) words have been initialized with '
@@ -386,14 +392,14 @@ class Model(object):
                 updates=updates,
                 givens=({is_train: np.cast['int32'](1)} if dropout else {})
             )
-            # Still don't know what I'm doing, and
-            # traveling so can't work. :(
             #========================================
-            # FUNCTION TO PRINT PRETRAINED EMBEDDINGS 
-            f_print_emb = theano.function(
-                inputs=train_inputs,
-                outputs=cost,
-            )
+            # FUNCTION TO PRINT PRETRAINED EMBEDDINGS
+            # The function below takes one argument, which it prints
+            # along with the specified print message.
+            print_matrix = T.dmatrix() 
+            print_op = printing.Print('print message') 
+            printed_x = print_op(print_matrix)
+            f_print = function([print_matrix], printed_x) 
             #========================================
         else:
             f_train = None
@@ -413,4 +419,4 @@ class Model(object):
                 givens=({is_train: np.cast['int32'](0)} if dropout else {})
             )
 
-        return f_train, f_eval
+        return f_train, f_eval, f_print, word_layer.embeddings
