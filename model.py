@@ -7,6 +7,8 @@ import theano.tensor as T
 import codecs
 import cPickle
 
+from theano import function, printing
+
 from utils import shared, set_values, get_name
 from nn import HiddenLayer, EmbeddingLayer, DropoutLayer, LSTM, forward
 from optimization import Optimization
@@ -403,6 +405,10 @@ class Model(object):
             #========================================
         else:
             f_train = None
+            f_print = None
+
+        # We return a tuple of things used to print the embedding so that it looks nicer. 
+        print_tuple = [f_print, word_layer.embeddings]
 
         # Compile evaluation function
         if not crf:
@@ -419,4 +425,4 @@ class Model(object):
                 givens=({is_train: np.cast['int32'](0)} if dropout else {})
             )
 
-        return f_train, f_eval, f_print, word_layer.embeddings
+        return f_train, f_eval, print_tuple

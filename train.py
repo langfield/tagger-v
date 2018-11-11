@@ -92,6 +92,10 @@ optparser.add_option(
     "-r", "--reload", default="0",
     type='int', help="Reload the last saved model"
 )
+optparser.add_option(
+    "-P", "--print_embedding", default="0",
+    type='int', help="Print the embedding vectors (0 to disable)"
+)
 opts = optparser.parse_args()[0]
 
 # Parse parameters
@@ -111,6 +115,7 @@ parameters['cap_dim'] = opts.cap_dim
 parameters['crf'] = opts.crf == 1
 parameters['dropout'] = opts.dropout
 parameters['lr_method'] = opts.lr_method
+parameters['print_embedding'] = opts.print_embedding
 
 # Check parameters validity
 assert os.path.isfile(opts.train)
@@ -211,7 +216,11 @@ print 'Saving the mappings to disk...'
 model.save_mappings(id_to_word, id_to_char, id_to_tag)
 
 # Build the model
-f_train, f_eval, f_print, embeddings = model.build(**parameters)
+f_train, f_eval, print_tuple = model.build(**parameters)
+
+# Function used to print the embedding, and the embedding object
+f_print = print_tuple[0]
+embeddings = print_tuple[1]
 
 # Reload previous model values
 if opts.reload:
@@ -247,8 +256,10 @@ for epoch in xrange(n_epochs):
         new_cost = f_train(*input)
         epoch_costs.append(new_cost)
 
-        # printing
-        f_print(embeddings.get_value())
+        # Print the embedding on each iteration to make sure vectors aren't
+        # being updated.
+        if parameters['print_embedding'] != 0:
+            f_print(embeddings.get_value())
 
         if i % 50 == 0 and i > 0 == 0:
             print "%i, cost average: %f" % (i, np.mean(epoch_costs[-50:]))
