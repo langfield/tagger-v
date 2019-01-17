@@ -1,0 +1,3 @@
+/homes/3/user/geo-emb/pretrained-embeddings/glove.840B.300d.word2vec_clean.bin
+/homes/3/user/geo-emb/pretrained-embeddings/GoogleNews-vectors-negative300.bin
+/homes/3/user/geo-emb/pretrained-embeddings/wiki-news-300d-1M-subword.bin
