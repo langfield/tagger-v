@@ -26,12 +26,14 @@ def get_name(parameters):
         if k == 'pre_emb':
             embeddings_name = v
     
+    source_name = os.path.splitext(os.path.basename(emb_path))[0]   
+ 
     now = datetime.datetime.now()
     timestamp = now.strftime("%Y-%m-%d-%H%M")
 
     #name = ",".join(["%s=%s" % (k, str(v).replace(',', '')) for k, v in l])
     #return "".join(i for i in name if i not in "\/:*?<>|")
-    return "".join(i for i in embeddings_name if i not in "\/:*?<>|") + '_time-' + timestamp
+    return "".join(i for i in source_name if i not in "\/:*?<>|") + '_time-' + timestamp
 
 
 def set_values(name, param, pretrained):
