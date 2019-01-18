@@ -1,4 +1,5 @@
 # coding=utf-8
+from __future__ import absolute_import
 from tqdm import tqdm
 
 import multiprocessing as mp
@@ -20,7 +21,6 @@ Preprocessing methods for cuto.py.
 
 #========1=========2=========3=========4=========5=========6=========7==
 
-from __future__ import absolute_import
 def check_valid_dir(some_dir):
     if not os.path.isdir(some_dir):
         print u"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
