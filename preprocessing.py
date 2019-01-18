@@ -1,5 +1,4 @@
 # coding=utf-8
-from progressbar import progressbar
 from tqdm import tqdm
 
 import multiprocessing as mp
