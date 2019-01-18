@@ -191,10 +191,11 @@ class Model(object):
                         emb_invalid += 1
                 if emb_invalid > 0:
                     print 'WARNING: %i invalid lines' % emb_invalid
+                '''
+                
                 c_found = 0
                 c_lower = 0
                 c_zeros = 0
-                '''
 
                 # Lookup table initialization
                 for i in xrange(n_words):
