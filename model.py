@@ -1,7 +1,7 @@
 import os
 import re
 import numpy as np
-import pyemblib
+import pyemblib2
 import scipy.io
 import theano
 import theano.tensor as T
@@ -176,7 +176,7 @@ class Model(object):
                 
                 # Here is where we will substitute pyemblib read function.
                 # Syntax: get_embedding_dict(emb_path, emb_format, first_n, vocab)
-                emb_format = pyemblib.Format.Word2Vec
+                emb_format = pyemblib2.Format.Word2Vec
                 pretrained = get_embedding_dict(pre_emb, emb_format, 0, None)
                 ''' 
                 pretrained = {}

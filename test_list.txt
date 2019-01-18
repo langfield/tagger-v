@@ -1,1 +1,1 @@
-/homes/3/user/geo-emb/pretrained-embeddings/top_10000_emb.txt
+/homes/3/user/geo-emb/pretrained-embeddings/first-100__source--GoogleNews-vectors-negative300.txt
