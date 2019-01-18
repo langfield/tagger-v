@@ -7,7 +7,6 @@ import numpy as np
 
 import pyemblib
 import scipy
-import queue
 import time
 import sys
 import os 

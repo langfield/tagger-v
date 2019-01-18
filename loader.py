@@ -1,6 +1,7 @@
 import os
 import re
 import codecs
+import pyemblib
 from utils import create_dico, create_mapping, zero_digits
 from utils import iob2, iob_iobes
 from preprocessing import get_embedding_dict
