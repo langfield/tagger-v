@@ -7,6 +7,7 @@ import itertools
 from collections import OrderedDict
 from utils import create_input
 import loader
+import datetime
 
 from utils import models_path, evaluate, eval_script, eval_temp
 from loader import word_mapping, char_mapping, tag_mapping
@@ -226,6 +227,25 @@ embeddings = print_tuple[1]
 if opts.reload:
     print 'Reloading previous model...'
     model.reload()
+
+# Print some stuff to a log file. 
+
+emb_path = parameters['pre_emb']
+source_name = os.path.splitext(os.path.basename(emb_path))[0]
+print("Source name:", source_name)
+
+
+now = datetime.datetime.now()
+timestamp = now.strftime("%Y-%m-%d-%H%M")
+
+# the name of the embedding to save
+parent = os.path.abspath(os.path.join(emb_path, "../"))
+check_valid_dir(parent)
+new_emb_path =  str(os.path.join(parent, "random__source--" + source_name 
+                + "__" + timestamp + ".bin"))
+print("Writing to: ", new_emb_path)
+
+
 
 #
 # Train network
