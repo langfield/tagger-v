@@ -12,6 +12,7 @@ from theano import function, printing
 from utils import shared, set_values, get_name
 from nn import HiddenLayer, EmbeddingLayer, DropoutLayer, LSTM, forward
 from optimization import Optimization
+from preprocessing import get_embedding_dict
 
 
 class Model(object):
@@ -171,7 +172,12 @@ class Model(object):
                 # Randomly generates new weights
                 new_weights = word_layer.embeddings.get_value()
                 print 'Loading pretrained embeddings from %s...' % pre_emb
-
+                
+                # Here is where we will substitute pyemblib read function.
+                # Syntax: get_embedding_dict(emb_path, emb_format, first_n, vocab)
+                emb_format = pyemblib.Format.Word2Vec
+                pretrained = get_embedding_dict(pre_emb, emb_format, 0, None)
+                ''' 
                 pretrained = {}
                 emb_invalid = 0
                 for i, line in enumerate(codecs.open(pre_emb, 'r', 'utf-8')):
@@ -187,6 +193,8 @@ class Model(object):
                 c_found = 0
                 c_lower = 0
                 c_zeros = 0
+                '''
+
                 # Lookup table initialization
                 for i in xrange(n_words):
                     word = self.id_to_word[i]

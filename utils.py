@@ -1,8 +1,9 @@
 import os
 import re
 import codecs
-import numpy as np
 import theano
+import datetime
+import numpy as np
 
 
 models_path = "./models"
@@ -16,13 +17,21 @@ def get_name(parameters):
     Generate a model name from its parameters.
     """
     l = []
+    embeddings_name = ""
     for k, v in parameters.items():
         if type(v) is str and "/" in v:
             l.append((k, v[::-1][:v[::-1].index('/')][::-1]))
         else:
             l.append((k, v))
-    name = ",".join(["%s=%s" % (k, str(v).replace(',', '')) for k, v in l])
-    return "".join(i for i in name if i not in "\/:*?<>|")
+        if k == 'pre_emb':
+            embeddings_name = v
+    
+    now = datetime.datetime.now()
+    timestamp = now.strftime("%Y-%m-%d-%H%M")
+
+    #name = ",".join(["%s=%s" % (k, str(v).replace(',', '')) for k, v in l])
+    #return "".join(i for i in name if i not in "\/:*?<>|")
+    return "".join(i for i in embeddings_name if i not in "\/:*?<>|") + '_time-' + timestamp
 
 
 def set_values(name, param, pretrained):

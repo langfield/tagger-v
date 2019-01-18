@@ -3,7 +3,7 @@ import re
 import codecs
 from utils import create_dico, create_mapping, zero_digits
 from utils import iob2, iob_iobes
-
+from preprocessing import get_embedding_dict
 
 def load_sentences(path, lower, zeros):
     """
@@ -172,12 +172,23 @@ def augment_with_pretrained(dictionary, ext_emb_path, words):
     print 'Loading pretrained embeddings from %s...' % ext_emb_path
     assert os.path.isfile(ext_emb_path)
 
-    # Load pretrained embeddings from file
+    '''
+    Load pretrained embeddings from file. 
+    Just gets set of all words from embedding set.
+    We replace with pyemblib implementation so that we can use
+    binary embeddings.  
+    ''' 
+    # Syntax: get_embedding_dict(emb_path, emb_format, first_n, vocab)
+    emb_format = pyemblib.Format.Word2Vec
+    pretrained_dict = get_embedding_dict(pre_emb, emb_format, 0, None)
+    pretrained = set([key for key,val in pretrained_dict.items()]) 
+    '''
     pretrained = set([
         line.rstrip().split()[0].strip()
         for line in codecs.open(ext_emb_path, 'r', 'utf-8')
         if len(ext_emb_path) > 0
     ])
+    '''
 
     # We either add every word in the pretrained file,
     # or only words given in the `words` list to which
