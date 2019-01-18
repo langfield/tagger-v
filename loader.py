@@ -181,7 +181,7 @@ def augment_with_pretrained(dictionary, ext_emb_path, words):
     ''' 
     # Syntax: get_embedding_dict(emb_path, emb_format, first_n, vocab)
     emb_format = pyemblib.Format.Word2Vec
-    pretrained_dict = get_embedding_dict(pre_emb, emb_format, 0, None)
+    pretrained_dict = get_embedding_dict(ext_emb_path, emb_format, 0, None)
     pretrained = set([key for key,val in pretrained_dict.items()]) 
     '''
     pretrained = set([
