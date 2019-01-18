@@ -1,6 +1,7 @@
 import os
 import re
 import numpy as np
+import pyemblib
 import scipy.io
 import theano
 import theano.tensor as T
