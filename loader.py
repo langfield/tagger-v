@@ -1,7 +1,7 @@
 import os
 import re
 import codecs
-import pyemblib
+import pyemblib2
 from utils import create_dico, create_mapping, zero_digits
 from utils import iob2, iob_iobes
 from preprocessing import get_embedding_dict
@@ -180,7 +180,7 @@ def augment_with_pretrained(dictionary, ext_emb_path, words):
     binary embeddings.  
     ''' 
     # Syntax: get_embedding_dict(emb_path, emb_format, first_n, vocab)
-    emb_format = pyemblib.Format.Word2Vec
+    emb_format = pyemblib2.Format.Word2Vec
     pretrained_dict = get_embedding_dict(ext_emb_path, emb_format, 0, None)
     pretrained = set([key for key,val in pretrained_dict.items()]) 
     '''

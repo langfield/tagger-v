@@ -10,9 +10,8 @@ import scipy
 import time
 import sys
 import os 
-from io import open
 
-u'''
+'''
 preprocessing.py
 
 Preprocessing methods for cuto.py. 
@@ -20,47 +19,46 @@ Preprocessing methods for cuto.py.
 
 #========1=========2=========3=========4=========5=========6=========7==
 
-from __future__ import absolute_import
 def check_valid_dir(some_dir):
     if not os.path.isdir(some_dir):
-        print u"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-        print u"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-        print u"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-        print u""
-        print u"DIES IST EIN UNGÜLTIGES VERZEICHNIS!!!!"
-        print u""
-        print u"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-        print u"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-        print u"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        print("")
+        print("DIES IST EIN UNGÜLTIGES VERZEICHNIS!!!!")
+        print("")
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         exit()
 
 #========1=========2=========3=========4=========5=========6=========7==
 
 def check_valid_file(some_file):
     if not os.path.isfile(some_file):
-        print u"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-        print u"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-        print u"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-        print u""
-        print u"DIES IST KEIN GÜLTIGER SPEICHERORT FÜR DATEIEN!!!!"
-        print u""
-        print u"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-        print u"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-        print u"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        print("")
+        print("DIES IST KEIN GÜLTIGER SPEICHERORT FÜR DATEIEN!!!!")
+        print("")
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         exit()
 
 #========1=========2=========3=========4=========5=========6=========7==
 
 def loadGloveModel(gloveFile):
-    print u"Loading Glove Model"
-    f = open(gloveFile,u'r')
+    print("Loading Glove Model")
+    f = open(gloveFile,'r')
     model = {}
     for line in f:
         splitLine = line.split()
         word = splitLine[0]
         embedding = np.array([float(val) for val in splitLine[1:]])
         model[word] = embedding
-    print u"Done.",len(model),u" words loaded!"
+    print("Done.",len(model)," words loaded!")
     return model
 
 #========1=========2=========3=========4=========5=========6=========7==
@@ -69,9 +67,9 @@ def loadGloveModel(gloveFile):
 # RETURNS: [numpy matrix of word vectors, df of the labels]
 def get_embedding_dict(emb_path, emb_format, first_n, vocab):
 
-    print u"Preprocessing. "
+    print("Preprocessing. ")
     file_name_length = len(emb_path)
-    extension = os.path.basename(emb_path).split(u'.')[-1]
+    extension = os.path.basename(emb_path).split('.')[-1]
 
     # Decide if it's a binary or text embedding file, and read in
     # the embedding as a dict object, where the keys are the tokens
@@ -79,28 +77,28 @@ def get_embedding_dict(emb_path, emb_format, first_n, vocab):
     # vectors (floats).
     embedding = {}
     read_mode = None
-    if first_n == 0 or emb_format == pyemblib2.Format.Glove:
+    if first_n == 0 or emb_format == pyemblib.Format.Glove:
         
-        print u"No value passed for first_n or feature not supported. "
+        print("No value passed for first_n or feature not supported. ")
         first_n = None
-    if extension == u'bin':
-        read_mode = pyemblib2.Mode.Binary
+    if extension == 'bin':
+        read_mode = pyemblib.Mode.Binary
         binary = True
-        print u"binary reac."
-    elif extension == u'txt':
-        read_mode = pyemblib2.Mode.Text
+        print("binary reac.")
+    elif extension == 'txt':
+        read_mode = pyemblib.Mode.Text
         binary = False
-        print u"text read."
+        print("text read.")
     else:
-        print u"Unsupported embedding mode. "
+        print("Unsupported embedding mode. ")
         exit()
-    u''' 
-    if emb_format == pyemblib2.Format.Glove:
+    ''' 
+    if emb_format == pyemblib.Format.Glove:
         embedding = loadGloveModel(emb_path)
     '''
     
     if first_n:    
-        embedding = pyemblib2.read(  emb_path, 
+        embedding = pyemblib.read(  emb_path, 
                                     format=emb_format,
                                     mode=read_mode,
                                     first_n=first_n,
@@ -108,7 +106,7 @@ def get_embedding_dict(emb_path, emb_format, first_n, vocab):
                                     skip_parsing_errors=True,
                                     ) 
     else:
-        embedding = pyemblib2.read(  emb_path, 
+        embedding = pyemblib.read(  emb_path, 
                                     format=emb_format,
                                     mode=read_mode,
                                     replace_errors=True,
@@ -123,9 +121,9 @@ def get_embedding_dict(emb_path, emb_format, first_n, vocab):
 # RETURNS: [numpy matrix of word vectors, df of the labels]
 def process_embedding(emb_path, emb_format, first_n, vocab):
 
-    print u"Preprocessing. "
+    print("Preprocessing. ")
     file_name_length = len(emb_path)
-    extension = os.path.basename(emb_path).split(u'.')[-1]
+    extension = os.path.basename(emb_path).split('.')[-1]
 
     # Decide if it's a binary or text embedding file, and read in
     # the embedding as a dict object, where the keys are the tokens
@@ -133,28 +131,28 @@ def process_embedding(emb_path, emb_format, first_n, vocab):
     # vectors (floats).
     embedding = {}
     read_mode = None
-    if first_n == 0 or emb_format == pyemblib2.Format.Glove:
+    if first_n == 0 or emb_format == pyemblib.Format.Glove:
         
-        print u"No value passed for first_n or feature not supported. "
+        print("No value passed for first_n or feature not supported. ")
         first_n = None
-    if extension == u'bin':
-        read_mode = pyemblib2.Mode.Binary
+    if extension == 'bin':
+        read_mode = pyemblib.Mode.Binary
         binary = True
-        print u"binary reac."
-    elif extension == u'txt':
-        read_mode = pyemblib2.Mode.Text
+        print("binary reac.")
+    elif extension == 'txt':
+        read_mode = pyemblib.Mode.Text
         binary = False
-        print u"text read."
+        print("text read.")
     else:
-        print u"Unsupported embedding mode. "
+        print("Unsupported embedding mode. ")
         exit()
-    u''' 
-    if emb_format == pyemblib2.Format.Glove:
+    ''' 
+    if emb_format == pyemblib.Format.Glove:
         embedding = loadGloveModel(emb_path)
     '''
     
     if first_n:    
-        embedding = pyemblib2.read(  emb_path, 
+        embedding = pyemblib.read(  emb_path, 
                                     format=emb_format,
                                     mode=read_mode,
                                     first_n=first_n,
@@ -162,7 +160,7 @@ def process_embedding(emb_path, emb_format, first_n, vocab):
                                     skip_parsing_errors=True,
                                     ) 
     else:
-        embedding = pyemblib2.read(  emb_path, 
+        embedding = pyemblib.read(  emb_path, 
                                     format=emb_format,
                                     mode=read_mode,
                                     replace_errors=True,
@@ -185,7 +183,7 @@ def process_embedding(emb_path, emb_format, first_n, vocab):
     # this df has shape [num_inputs,2] since the vectors are all in 1
     # column as length d lists 
     emb_array = np.array(embedding.items())
-    print u"numpy"
+    print("numpy")
     sys.stdout.flush() 
 
     label_array = np.array([ row[0] for row in emb_array.tolist() ])
@@ -197,7 +195,7 @@ def process_embedding(emb_path, emb_format, first_n, vocab):
     #print(vectors_matrix[0:10])
     sys.stdout.flush() 
 
-    u'''
+    '''
     emb_df = pd.Series(embedding, name="words_with_friends")
     # print(emb_df.head(10))
 
@@ -226,7 +224,7 @@ def process_embedding(emb_path, emb_format, first_n, vocab):
 # DOES: Saves the first n words in a new embedding file
 def subset_embedding(emb_path, first_n, vocab):
 
-    print u"Preprocessing. "
+    print("Preprocessing. ")
     file_name_length = len(emb_path)
     last_char = emb_path[file_name_length - 1]
 
@@ -235,31 +233,31 @@ def subset_embedding(emb_path, first_n, vocab):
     # (strings), and the values are the components of the corresponding 
     # vectors (floats).
     embedding = {}
-    if (last_char == u'n'):
-        embedding = pyemblib2.read(emb_path, 
-                                  mode=pyemblib2.Mode.Binary,
+    if (last_char == 'n'):
+        embedding = pyemblib.read(emb_path, 
+                                  mode=pyemblib.Mode.Binary,
                                   first_n=first_n) 
-    elif (last_char == u't'):
-        embedding = pyemblib2.read(emb_path, 
-                                  mode=pyemblib2.Mode.Text, 
+    elif (last_char == 't'):
+        embedding = pyemblib.read(emb_path, 
+                                  mode=pyemblib.Mode.Text, 
                                   first_n=first_n)
     else:
-        print u"Unsupported embedding format. "
+        print("Unsupported embedding format. ")
         exit()
 
     # make sure it has a valid file extension
     extension = emb_path[file_name_length - 4:file_name_length]
-    if extension != u".txt" and extension != u".bin":
-        print u"Invalid file path. "
+    if extension != ".txt" and extension != ".bin":
+        print("Invalid file path. ")
         exit()
    
     # get the emb_path without the file extension 
     path_no_ext = emb_path[0:file_name_length - 4]
-    new_path = path_no_ext + u"_SUBSET.txt"
+    new_path = path_no_ext + "_SUBSET.txt"
 
     # write to text embedding file
-    pyemblib2.write(embedding, 
+    pyemblib.write(embedding, 
                    new_path, 
-                   mode=pyemblib2.Mode.Text)
+                   mode=pyemblib.Mode.Text)
     
     return 
