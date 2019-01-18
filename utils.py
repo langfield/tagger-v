@@ -26,7 +26,7 @@ def get_name(parameters):
         if k == 'pre_emb':
             embeddings_name = v
     
-    source_name = os.path.splitext(os.path.basename(emb_path))[0]   
+    source_name = os.path.splitext(os.path.basename(embeddings_name))[0]   
  
     now = datetime.datetime.now()
     timestamp = now.strftime("%Y-%m-%d-%H%M")
