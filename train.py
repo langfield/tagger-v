@@ -239,9 +239,9 @@ now = datetime.datetime.now()
 timestamp = now.strftime("%Y-%m-%d-%H%M")
 
 # the name of the embedding to save
-parent = os.path.abspath(os.path.join(emb_path, "../"))
+parent = os.path.abspath("../")
 check_valid_dir(parent)
-new_emb_path =  str(os.path.join(parent, "random__source--" + source_name 
+log_path =  str(os.path.join(parent, "random__source--" + source_name 
                 + "__" + timestamp + ".bin"))
 print("Writing to: ", new_emb_path)
 
