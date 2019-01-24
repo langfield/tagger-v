@@ -244,7 +244,7 @@ check_valid_dir(parent)
 log_path =  str(os.path.join(parent, "random__source--" + source_name 
                 + "__" + timestamp + ".bin"))
 print("Writing to: ", new_emb_path)
-
+# No progress on logging script. 
 
 
 #
