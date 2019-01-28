@@ -240,10 +240,11 @@ timestamp = now.strftime("%Y-%m-%d-%H%M")
 
 # the name of the embedding to save
 parent = os.path.abspath("../")
+log_path = os.path.abspath("./")
 check_valid_dir(parent)
 log_path =  str(os.path.join(parent, "tagger_log--" + source_name 
                 + "__" + timestamp + ".bin"))
-print("Writing to: ", new_emb_path)
+print("Writing to: ", log_path)
 
 
 #
