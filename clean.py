@@ -59,7 +59,9 @@ def _readBin(fname, size_only=False, first_n=None, separator=' ', replace_errors
         vector = np.array(array.array('f', inf.read(dim*float_size)))
 
         #================================
-        if not np.isfinite(vector) or np.isnan(vector):
+        finite_array = np.isfinite(vector)
+        nan_array = np.isnan(vector)
+        if True in finite_array or True in nan_array:
             problem_words.append(key)
             num_errors += 1    
         #================================
