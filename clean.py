@@ -148,7 +148,7 @@ def loopflow(target_list_path):
             else: key = words[i]
             wordmap[key] = vectors[i]
 
-        save_name = os.path.join(parent,'parse-error-fix_' + basename + '.' + extension)
+        save_name = os.path.join(parent,'parse-error-fix_' + basename)
         pyemblib.write(wordmap, save_name, mode=pyemblib.Mode.Binary)
 
 if __name__ == '__main__':
