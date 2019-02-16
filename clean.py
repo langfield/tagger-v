@@ -1,6 +1,7 @@
-from tqdm import tqdm
-
+import pyemblib.Embeddings as Embeddings
 import numpy as np
+
+from tqdm import tqdm
 
 import pyemblib
 import array
@@ -61,12 +62,12 @@ def _readBin(fname, size_only=False, first_n=None, separator=' ', replace_errors
         #================================
         finite_array = np.isfinite(vector)
         nan_array = np.isnan(vector)
-        if True in finite_array or True in nan_array:
-            problem_words.append(key)
+        if False in finite_array or True in nan_array:
+            problem_words.append(word)
             num_errors += 1    
         #================================
 
-        if key_filter(word):
+        elif key_filter(word):
             words.append(word)
             vectors.append(vector)
 
@@ -86,6 +87,25 @@ def _readBin(fname, size_only=False, first_n=None, separator=' ', replace_errors
     return (words, vectors)
 
 words, vectors = _readBin(embeddings)
+
+wordmap = Embeddings()
+for i in range(len(words)):
+    if lower_keys: key = words[i].lower()
+    else: key = words[i]
+    wordmap[key] = vectors[i]
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
