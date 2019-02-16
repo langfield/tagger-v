@@ -10,6 +10,44 @@ import os
 
 embeddings = sys.argv[1]
 
+#========1=========2=========3=========4=========5=========6=========7==
+
+class Embeddings(dict):
+    '''Wrapper for word embeddings; inherits from Dictionary.
+    Keys are words, values are embedding arrays.
+    '''
+    @property
+    def size(self):
+        if not hasattr(self, '_size'):
+            for any_vector in self.values():
+                break
+            self._size = len(any_vector)
+        return self._size
+    @property
+    def dimension(self):
+        return self.size
+    @property
+    def shape(self):
+        return (len(self), self.size)
+
+    def has(self, key):
+        return not self.get(key, None) is None
+
+    def toarray(self, ordered=False):
+        '''Returns the embedding vocabulary in fixed order and
+        a NumPy array of the embeddings, in vocab order.
+        '''
+        if ordered:
+            vocab = list(self.keys())
+            vocab.sort()
+            vocab = tuple(vocab)
+        else:
+            vocab = tuple(self.keys())
+        embed_array = []
+        for v in vocab: embed_array.append(self[v])
+        return (vocab, numpy.array(embed_array))
+
+#========1=========2=========3=========4=========5=========6=========7==
 
 def _readBin(fname, size_only=False, first_n=None, separator=' ', replace_errors=False, filter_to=None, lower_keys=False, errors='strict'):
     import sys
@@ -86,6 +124,8 @@ def _readBin(fname, size_only=False, first_n=None, separator=' ', replace_errors
             sys.stderr.write("[WARNING] Expected %d words, read %d\n" % (numWords, len(words)))
     return (words, vectors)
 
+#========1=========2=========3=========4=========5=========6=========7==
+
 words, vectors = _readBin(embeddings)
 
 wordmap = Embeddings()
@@ -94,7 +134,7 @@ for i in range(len(words)):
     else: key = words[i]
     wordmap[key] = vectors[i]
 
-
+pyemblib.write(wordmap, "test_PJ_fix.bin", mode=pyemblib.Mode.Binary)
 
 
 
