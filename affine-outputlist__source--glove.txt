@@ -1,0 +1,8 @@
+/homes/3/user/geo-emb/pretrained-embeddings/PJ_test/affine-0__source--glove.840B.300d.word2vec_clean__time--2019-01-12-1802.bin
+/homes/3/user/geo-emb/pretrained-embeddings/PJ_test/affine-1__source--glove.840B.300d.word2vec_clean__time--2019-01-12-1802.bin
+/homes/3/user/geo-emb/pretrained-embeddings/PJ_test/affine-2__source--glove.840B.300d.word2vec_clean__time--2019-01-12-1802.bin
+/homes/3/user/geo-emb/pretrained-embeddings/PJ_test/affine-3__source--glove.840B.300d.word2vec_clean__time--2019-01-12-1802.bin
+/homes/3/user/geo-emb/pretrained-embeddings/PJ_test/affine-4__source--glove.840B.300d.word2vec_clean__time--2019-01-12-1802.bin
+/homes/3/user/geo-emb/pretrained-embeddings/PJ_test/affine-5__source--glove.840B.300d.word2vec_clean__time--2019-01-12-1802.bin
+/homes/3/user/geo-emb/pretrained-embeddings/PJ_test/affine-6__source--glove.840B.300d.word2vec_clean__time--2019-01-12-1802.bin
+/homes/3/user/geo-emb/pretrained-embeddings/PJ_test/affine-7__source--glove.840B.300d.word2vec_clean__time--2019-01-12-1802.bin
