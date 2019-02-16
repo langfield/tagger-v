@@ -1,14 +1,13 @@
-import pyemblib.Embeddings as Embeddings
-import numpy as np
-
 from tqdm import tqdm
+
+import numpy as np
 
 import pyemblib
 import array
 import sys
 import os 
 
-embeddings = sys.argv[1]
+target_list_path = sys.argv[1]
 
 #========1=========2=========3=========4=========5=========6=========7==
 
@@ -126,26 +125,31 @@ def _readBin(fname, size_only=False, first_n=None, separator=' ', replace_errors
 
 #========1=========2=========3=========4=========5=========6=========7==
 
-words, vectors = _readBin(embeddings)
+def loopflow(target_list_path):
+    with open(target_list_path) as f:
+        target_list = f.readlines()
 
-wordmap = Embeddings()
-for i in range(len(words)):
-    if lower_keys: key = words[i].lower()
-    else: key = words[i]
-    wordmap[key] = vectors[i]
+    for i,target in enumerate(target_list):
+        target = os.path.abspath(target)
+        target = list(target)
+        target.remove('\n')
+        target = "".join(target)
+        basename = os.path.basename(target)
+        parent = os.path.parent(target)
+        extension = target.split('.')[-1]
+        os.system('srun -J 15GB-4c --mem 15000 -c 4 -w zirconium python3 /u/user/tagger-v/clean.py ' + target)
 
-pyemblib.write(wordmap, "test_PJ_fix.bin", mode=pyemblib.Mode.Binary)
+        words, vectors = _readBin(target)
 
+        lower_keys = False
+        wordmap = Embeddings()
+        for i in range(len(words)):
+            if lower_keys: key = words[i].lower()
+            else: key = words[i]
+            wordmap[key] = vectors[i]
 
+        save_name = os.path.join(parent,'parse-error-fix_' + basename + '.' + extension)
+        pyemblib.write(wordmap, save_name, mode=pyemblib.Mode.Binary)
 
-
-
-
-
-
-
-
-
-
-
-
+if __name__ == '__main__':
+    loopflow(target_list_path)
