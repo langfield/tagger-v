@@ -126,12 +126,13 @@ def _readBin(fname, size_only=False, first_n=None, separator=' ', replace_errors
 #========1=========2=========3=========4=========5=========6=========7==
 
 def loopflow(target_list_path):
-    with open(target_list_path) as f:
+    with open(target_list_path, encoding='utf-8', errors='ignore') as f:
         target_list = f.readlines()
 
     for i,target in enumerate(target_list):
         target = os.path.abspath(target)
         target = list(target)
+        print(target)
         target.remove('\n')
         target = "".join(target)
         basename = os.path.basename(target)
