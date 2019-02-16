@@ -132,13 +132,11 @@ def loopflow(target_list_path):
     for i,target in enumerate(target_list):
         target = os.path.abspath(target)
         target = list(target)
-        print(target)
         target.remove('\n')
         target = "".join(target)
         basename = os.path.basename(target)
         parent = os.path.abspath(os.path.join(target, '../'))
         extension = target.split('.')[-1]
-        os.system('srun -J 15GB-4c --mem 15000 -c 4 -w zirconium python3 /u/user/tagger-v/clean.py ' + target)
 
         words, vectors = _readBin(target)
 
